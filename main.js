@@ -28,7 +28,7 @@ camera = document.getElementById("camera");
     }
 
     function speak(){
-        var synth = window.SpeechSynthesis;
+        var synth = window.speechSynthesis;
         speak_data = "The first prediction is" + prediction_1;
         speak_data_1 = "The second prediction is" + prediction_2;
         var utter_this = new SpeechSynthesisUtterance(speak_data + speak_data_1);
@@ -40,32 +40,32 @@ camera = document.getElementById("camera");
         classifier.classify(img, gotResult);
     }
 
-    function gotResult(error , result){
+    function gotResult(error , results){
         if(error){
-            console.log(error);
+            console.error(error);
         } else {
-            console.log(result);
-            document.getElementById("result_emotion_name").innerText = result[0].label;
-            document.getElementById("result_emotion_name2").innerText = result[1].label;
-            prediction_1 = result[0].label;
-            prediction_2 = result[1].label;
+            console.log(results);
+            document.getElementById("result_emotion_name").innerText = results[0].label;
+            document.getElementById("result_emotion_name2").innerText = results[1].label;
+            prediction_1 = results[0].label;
+            prediction_2 = results[1].label;
             speak();
-            if (result[0].label == "happy"){
+            if (results[0].label == "happy"){
                 document.getElementById("update_emoji").innerHTML = "&#128522;";
             }
-            if (result[0].label == "sad"){
+            if (results[0].label == "sad"){
                 document.getElementById("update_emoji").innerHTML = "&#128532;";
             }
-            if (result[0].label == "angry"){
+            if (results[0].label == "angry"){
                 document.getElementById("update_emoji").innerHTML = "&#128548;";
             }
-            if (result[1].label == "happy"){
+            if (results[1].label == "happy"){
                 document.getElementById("update_emoji2").innerHTML = "&#128522;";
             }
-            if (result[1].label == "sad"){
+            if (results[1].label == "sad"){
                 document.getElementById("update_emoji2").innerHTML = "&#128532;";
             }
-            if (result[1].label == "angry"){
+            if (results[1].label == "angry"){
                 document.getElementById("update_emoji2").innerHTML = "&#128548;";
             }
         }
